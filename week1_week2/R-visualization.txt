@@ -1,0 +1,50 @@
+library("readxl")
+# xls files
+my_data <- read_excel("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week1_week2/ex1-2/ex1-2/hotdog-contest-winners.xlsm")
+ 
+# Create bar plot using ggplot() function
+library("ggplot2")
+ggplot(my_data, aes(x=Country,y='Dogs eaten', , fill=Country)) +  geom_bar(stat = "identity")
+
+
+
+obama <- read_excel("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week1_week2/ex1-2/ex1-2/obama-approval-ratings.xls")
+library("ggplot2")
+obama2 <- melt(obama[,c('Issue', 'Approve','Disapprove','None')],id.vars = 1)
+head(obama2)
+ggplot(obama2,aes(x = Issue,y = value)) + 
+    geom_bar(aes(fill = variable),stat = "identity")
+
+
+# Basic piechart
+my_data <- read_excel("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week1_week2/ex1-2/ex1-2/hotdog-contest-winners.xlsm")
+ggplot(my_data, aes(x="", y=Country, fill=Country)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)
+  
+ 
+
+my_data <- read_excel("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week1_week2/ex1-2/ex1-2/hotdog-contest-winners.xlsm")
+ggplot(my_data, aes(x="", y=Country, fill=Country)) +
+  geom_bar(stat="identity", width=1) +
+  coord_polar("y", start=0)
+
+ 
+  library("dplyr")
+  library("ggplot2")
+  library("readxl")
+  
+my_data <- read_excel("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week1_week2/ex1-2/ex1-2/hotdog-contest-winners.xlsm")
+names(my_data) <- gsub(" ", "_", names(my_data))
+PD = my_data %>% group_by(Country) %>% summarise(n = sum(Dogs_eaten))
+print(PD)
+
+ggplot(PD, aes(x=2, y=n, fill=Country))+
+  geom_col(width=1) +
+  xlim(0.5, 2.5) +
+  scale_fill_viridis_d() +
+  coord_polar("y") 
+  
+ggplot(data=my_data, aes(x=Year, y=Dogs_eaten, group=1)) +
+  geom_line()+
+  geom_point()

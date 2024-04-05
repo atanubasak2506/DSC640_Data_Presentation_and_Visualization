@@ -1,0 +1,47 @@
+library("readxl")
+# xls files
+library("ggplot2")
+install.packages("ggmap")
+install.packages("RColorBrewer")
+library("dplyr")
+library(ggplot2)
+install.packages("mapview")
+library(mapview)
+cos <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week7_week8/ex5-2/costcos-geocoded.csv")
+
+
+
+cosfl <- cos  %>% filter(State == "Florida")
+
+cosfl %>% glimpse()
+
+
+
+mapview(cosfl, xcol = "Longitude", ycol = "Latitude", crs = 4269, grid = FALSE)
+
+install.packages("ggplotly")
+library(ggplotly)
+st <- cos %>% count(State)
+plot_usmap(data = st, values = "n", color = "red") + scale_fill_continuous(name = "Costco Count by States", label = scales::comma) + theme(legend.position = "right")
+
+
+
+library(usmap) #import the package
+library(ggplot2) #use ggplot2 to add layer for visualization
+colnames(st)[1] <- "state"
+
+
+game <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week7_week8/ex5-2/ppg2008.csv")
+
+# Horizontal version
+ggplot(game, aes(x=Name, y=G)) +
+  geom_segment( aes(x=Name, xend=Name, y=0, yend=G), color="skyblue") +
+  geom_point( color="blue", size=4, alpha=0.6) +
+  theme_light() +
+  coord_flip() +
+  theme(
+    panel.grid.major.y = element_blank(),
+    panel.border = element_blank(),
+    axis.ticks.y = element_blank()
+  )+ xlab("") +
+  ylab("Count of Goles")

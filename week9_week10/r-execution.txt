@@ -1,0 +1,38 @@
+library("readxl")
+# xls files
+library("ggplot2")
+install.packages("ggmap")
+install.packages("RColorBrewer")
+library("dplyr")
+library(ggplot2)
+install.packages("mapview")
+library(mapview)
+br <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week9_week10/ex6-2/birth-rate.csv")
+cr <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week9_week10/ex6-2/crimeratesbystate-formatted.csv")
+ed <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week9_week10/ex6-2/education.csv")
+
+hist(ed$dropout_rate)
+
+boxplot(br$2008)
+
+br[1:4,1:3]
+
+br[1:4,1:3] %>%
+  ggplot(aes(x = X1961, y = fct_reorder(Country, X1960))) +
+  geom_col(aes(x = 100), fill="white", color = "grey", width = 0.7) +
+  geom_col(aes(x = X1960), alpha = 0.5, width = 0.7) +
+  geom_col(width = 0.7) +
+  labs(x = "Birthrate for the Country", y = "")
+
+library(plotly)
+
+
+fig <- plot_ly(
+    domain = list(x = c(0, 1), y = c(0, 1)),
+    value = cr$burglary[2],
+    title = list(text = "Burglary in Alabama"),
+    type = "indicator",
+    mode = "gauge+number") 
+fig <- fig %>%
+  layout(margin = list(l=10,r=50))
+fig

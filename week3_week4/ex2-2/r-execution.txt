@@ -1,0 +1,21 @@
+library("readxl")
+# xls files
+library("ggplot2")
+
+unemp <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week3_week4/ex2-2/unemployement-rate-1948-2010.csv")
+ 
+library(ggplot2)
+library(treemapify)
+
+ue <- unemp %>% group_by(Year) %>%
+  summarize(Value = sum(Value)) 
+# Plotting the TreeMap
+ggplot2::ggplot(ue,aes(area=Value,fill=Year, label=Year))+geom_treemap()+geom_treemap_text()
+
+
+exp <- read.delim("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week3_week4/ex2-2/expenditures.txt", header = TRUE, sep = "\t", dec = ".")
+
+exp_sum <- exp %>% group_by(year) %>%
+  summarize(expenditure = sum(expenditure))
+ 
+ggplot(exp_sum, aes(x=year, y=expenditure)) + geom_area()

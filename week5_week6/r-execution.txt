@@ -1,0 +1,24 @@
+library("readxl")
+# xls files
+library("ggplot2")
+
+br <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week4_week5/ex4-2/birth-rates-yearly.csv")
+ 
+library(ggplot2)
+library(treemapify)
+
+br <- br %>% group_by(year) %>%
+  summarize(rate = sum(rate)) 
+
+ggplot(br, aes(x=year, y=rate)) + geom_point()
+ 
+cr <- read.csv("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week4_week5/ex4-2/crimerates-by-state-2005.csv")
+ggplot(cr, aes(x = robbery, y = burglary,size = population))+ geom_point(alpha = 0.7)
+
+
+
+tv <- read.table("C:/Bellevue University MSDS/DSC_640_Data_Presentation_and_Visualization/week4_week5/ex4-2/tv_sizes.txt", sep = '\t', header = TRUE)
+ 
+
+ggplot(tv, aes(x=size))+
+  geom_density(color="darkblue", fill="lightblue")
